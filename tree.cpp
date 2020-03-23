@@ -43,3 +43,51 @@ string tree::preorder(node* wurzel) {
 		return "";
 	return postorder(wurtzel->left) + postorder(wurtzel->right) + std::to_string(wurtzel->wert) + " ";
 }
+void tree::_delete(int v) {
+	node* zeiger = wurzel;
+	while (zeiger)
+	{
+		if (zeiger->left != nullptr) {
+			if (zeiger->left->wert==v)
+			{
+				zeiger->left = zeiger->left->right;
+				return;
+			}
+		}
+		if (zeiger->right != nullptr) {
+			if (zeiger->right->wert == v)
+			{
+				zeiger->right = zeiger->right->left;
+				return;
+			}
+		}
+		if (zeiger->wert < v)
+		{
+			if (zeiger->right == nullptr) {
+				return;
+			}
+			zeiger = zeiger->right;
+		}
+		if (zeiger->wert > v)
+		{
+			if (zeiger->left == nullptr) {
+				return;
+			}
+			zeiger = zeiger->left;
+		}
+
+	}
+}
+int tree::countNodes(node* n) {
+	int ct = 1;
+	if (n==nullptr)
+	{
+		return 0;
+	}
+	else {
+		ct = ct + countNodes(n->left);
+		ct = ct + countNodes(n->right);
+		return ct;
+	}
+}
+

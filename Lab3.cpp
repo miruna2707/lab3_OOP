@@ -12,5 +12,8 @@ int main() {
     std::cout << tr.postorder(tr.wurzel) << '\n';
     std::cout << tr.preorder(tr.wurzel) << '\n';
     std::cout << "Test orders OK\n";
+    assert(tr.countNodes(tr.wurzel) == 4);
+    tr._delete(4);
+    assert(tr.countNodes(tr.wurzel) == 3);
     return 0;
 }
