@@ -1,9 +1,10 @@
 #pragma once
 #include "tree.h"
-class node:public tree
-
+class node
 {
-public:
+	friend class tree;
+
+protected:
 	node(int wert) {
 		this->wert = wert;
 		left = right = nullptr;
