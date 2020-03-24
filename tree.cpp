@@ -43,39 +43,78 @@ string tree::preorder(node* wurzel) {
 		return "";
 	return postorder(wurtzel->left) + postorder(wurtzel->right) + std::to_string(wurtzel->wert) + " ";
 }
-void tree::_delete(int v) {
-	node* zeiger = wurzel;
-	while (zeiger)
-	{
-		if (zeiger->left != nullptr) {
-			if (zeiger->left->wert==v)
-			{
-				zeiger->left = zeiger->left->right;
-				return;
-			}
-		}
-		if (zeiger->right != nullptr) {
-			if (zeiger->right->wert == v)
-			{
-				zeiger->right = zeiger->right->left;
-				return;
-			}
-		}
-		if (zeiger->wert < v)
-		{
-			if (zeiger->right == nullptr) {
-				return;
-			}
-			zeiger = zeiger->right;
-		}
-		if (zeiger->wert > v)
-		{
-			if (zeiger->left == nullptr) {
-				return;
-			}
-			zeiger = zeiger->left;
-		}
+void tree::_delete(node*& wurzel, int v)
+{
+	node* vater = nullptr;
 
+	node* curent = wurzel;
+
+	searchWert(curent, v, vater);
+
+	if (curent == nullptr)
+		return;
+
+	if (curent->left == nullptr && curent->right == nullptr)
+	{
+		if (curent != wurzel)
+		{
+			if (vater->left == curent)
+				vater->left = nullptr;
+			else
+				vater->right = nullptr;
+		}
+		else
+			wurzel = nullptr;
+
+		free(curent);	
+	}
+
+	else
+		if (curent->left && curent->right)
+		{
+			node* next = minimumWert(curent->right);
+
+			int val = next->wert;
+
+			_delete(wurzel, next->wert);
+
+			curent->wert = val;
+		}
+		else
+		{
+			node* sohn = (curent->left) ? curent->left : curent->right;
+
+			if (curent != wurzel)
+			{
+				if (curent == vater->left)
+					vater->left = sohn;
+				else
+					vater->right = sohn;
+			}
+
+			else
+				wurzel = sohn;
+
+			free(curent);
+		}
+}
+node* tree::minimumWert(node* curent)
+{
+	while (curent->left != nullptr) {
+		curent = curent->left;
+	}
+	return curent;
+}
+void tree::searchWert(node*& curent, int v, node*& vater)
+{
+	while (curent != nullptr && curent->wert != v)
+	{
+		vater = curent;
+
+		if (v < curent->wert)
+			curent = curent->left;
+		else
+			curent = curent->right;
 	}
 }
 int tree::countNodes(node* n) {
