@@ -133,3 +133,20 @@ int tree::countNodes(node* n) {
 int tree::countEdges(node* n) {
 	return countNodes(n)-1;
 }
+
+int tree::height(node* node)
+{
+	if (node == NULL)
+		return 0;
+	else
+	{
+		/* berechnen die hohe jedes Teilbaumes*/
+		int l_height = height(node->left);
+		int r_height = height(node->right);
+
+		/* benutzen den grosseren */
+		if (l_height > r_height)
+			return(l_height + 1);
+		else return(r_height + 1);
+	}
+}
