@@ -16,8 +16,8 @@ public:
 	int countNodes(node* n);
 	node* minimumWert(node* curent);
 	void searchWert(node*& curent, int v, node*& vater);
-	//int countEdges(node n);
-	//int height(node n);
+	int countEdges(node* n);
+	//int height(node* n);
 	
 };
 

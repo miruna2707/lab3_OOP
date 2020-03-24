@@ -130,3 +130,6 @@ int tree::countNodes(node* n) {
 	}
 }
 
+int tree::countEdges(node* n) {
+	return countNodes(n)-1;
+}
